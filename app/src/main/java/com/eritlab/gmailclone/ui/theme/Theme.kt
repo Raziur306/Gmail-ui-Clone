@@ -52,6 +52,7 @@ fun GmailCloneTheme(
     if (!view.isInEditMode) {
         SideEffect {
             (view.context as Activity).window.statusBarColor = colorScheme.surface.toArgb()
+            (view.context as Activity).window.navigationBarColor = colorScheme.surface.toArgb()
             ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = !darkTheme
 
         }

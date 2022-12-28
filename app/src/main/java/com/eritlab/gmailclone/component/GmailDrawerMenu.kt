@@ -4,7 +4,9 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material3.*
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
@@ -29,7 +31,11 @@ fun GmailDrawerMenu(
     selectedItem: MutableState<NavDrawerItem>,
 ) {
 
-    Column(modifier = Modifier.verticalScroll(scrollState)) {
+    Column(
+        modifier = Modifier
+            .verticalScroll(scrollState)
+            .background(MaterialTheme.colorScheme.surface)
+    ) {
         Text(
             text = "Gmail", fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
@@ -87,7 +93,7 @@ fun DrawerItem(
                 )
             )
             .background(
-                if (selectedItem.value == item) Color.Gray else Color.Transparent
+                if (selectedItem.value == item) MaterialTheme.colorScheme.secondaryContainer else Color.Transparent
             )
             .clickable {
                 selectedItem.value = item
@@ -103,7 +109,10 @@ fun DrawerItem(
             imageVector = item.icon!!, contentDescription = item.title,
             modifier = Modifier.weight(0.5f)
         )
-        Text(text = item.title!!, modifier = Modifier.weight(2.0f))
+        Text(
+            text = item.title!!, modifier = Modifier.weight(2.0f),
+            // color = if (selectedItem.value == item) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 
 }

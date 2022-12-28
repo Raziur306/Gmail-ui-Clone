@@ -3,6 +3,7 @@ package com.eritlab.gmailclone
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
@@ -13,8 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.eritlab.gmailclone.component.BottomMenu
 import com.eritlab.gmailclone.component.GmailDrawerMenu
 import com.eritlab.gmailclone.ui.theme.GmailCloneTheme
+import com.eritlab.gmailclone.utils.BottomItem
 import com.eritlab.gmailclone.utils.NavDrawerItem
 
 class MainActivity : ComponentActivity() {
@@ -39,10 +42,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun GmailApp() {
-    val scaffoldState = rememberScaffoldState()
-    val coroutineScope = rememberCoroutineScope()
-    val scrollState = rememberScrollState()
-
     //top bar menu list
     val menuItems = listOf(
         NavDrawerItem.Divider,
@@ -70,10 +69,20 @@ fun GmailApp() {
         NavDrawerItem.Settings,
         NavDrawerItem.Help
     )
+    //bottom menu list
+    val bottomList = listOf(
+        BottomItem.MailNotification,
+        BottomItem.Chat,
+        BottomItem.Spaces,
+        BottomItem.Meet
+    )
 
 
-    val selectedItem = remember { mutableStateOf(menuItems[0]) }
-
+    val selectedItem = remember { mutableStateOf(menuItems[6]) }
+    val scaffoldState = rememberScaffoldState()
+    val coroutineScope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
+    val bottomBarSelectedItem = remember { mutableStateOf(bottomList[0]) }
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -88,10 +97,9 @@ fun GmailApp() {
             )
         },
         bottomBar = {
-
-        }
-
-
+            BottomMenu(bottomList, bottomBarSelectedItem)
+        },
+        modifier = Modifier.background(androidx.compose.material3.MaterialTheme.colorScheme.background)
     ) {
 
     }
