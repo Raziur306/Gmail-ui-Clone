@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Colors
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -21,7 +22,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun NavigationBar(scaffoldState: ScaffoldState, scope: CoroutineScope) {
-    Box(modifier = Modifier.padding(10.dp))
+    Box(
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.background)
+            .padding(10.dp)
+
+    )
     {
         Card(
             modifier = Modifier.requiredHeight(50.dp),
@@ -39,7 +45,7 @@ fun NavigationBar(scaffoldState: ScaffoldState, scope: CoroutineScope) {
                         scaffoldState.drawerState.open()
                     }
 
-                })  {
+                }) {
                     Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
                 }
 
