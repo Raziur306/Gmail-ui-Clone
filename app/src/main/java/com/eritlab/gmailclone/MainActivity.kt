@@ -6,6 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -30,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.eritlab.gmailclone.component.BottomMenu
 import com.eritlab.gmailclone.component.GmailDrawerMenu
+import com.eritlab.gmailclone.component.GmailFab
 import com.eritlab.gmailclone.ui.theme.GmailCloneTheme
 import com.eritlab.gmailclone.utils.BottomItem
 import com.eritlab.gmailclone.utils.NavDrawerItem
@@ -100,7 +104,7 @@ fun GmailApp() {
     val coroutineScope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
     val bottomBarSelectedItem = remember { mutableStateOf(bottomList[0]) }
-    val lazyListState = rememberLazyListState()
+    val lazyScrollState = rememberScrollState()
     val context = LocalContext.current
 
     Scaffold(
@@ -120,11 +124,15 @@ fun GmailApp() {
         bottomBar = {
             BottomMenu(bottomList, bottomBarSelectedItem)
         },
+        floatingActionButton = {
+            GmailFab(lazyScrollState)
+        }
     ) { padding ->
 
 
         LazyColumn(
             modifier = Modifier
+                .scrollable(lazyScrollState, Orientation.Vertical)
                 .padding(padding)
                 .background(MaterialTheme.colorScheme.background)
         ) {
